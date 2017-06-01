@@ -1,22 +1,11 @@
 # BookDen
 ## <br>_Setting up local repository_
-#### 1) Create a "BookDen" directory in your desired location
-#### 2) Go to the "BookDen/" directory through your terminal, and type these:
+#### 1) Go to the directory where you want to create the repository (The clone will come within a folder, so no need to create a folder), and type this:
 ```shell
 $ git clone https://github.com/uzillion/BookDen.git
 ```
-#### 3) You will be prompted for username-password. Sign in, and type these:
-```shell
-$ git remote add origin https://github.com/uzillion/BookDen.git
-```
-```shell
-$ git fetch origin
-```
-#### 4) Will be prompted for username-password again. Sign in, and type this:
-```shell
-$ git branch -u origin/master
-```
-#### 5) Check if everything is fine by typing this, and checking if output looks similar:
+##### You will be prompted for username-password. Sign in.
+#### 2) Check if everything is fine by typing this, and checking if output looks similar:
 ```shell
 $ git status
 On branch master
@@ -24,6 +13,13 @@ Your branch is up-to-date with 'origin/master'.
 nothing to commit, working tree clean
 ```
 #### Note: Always do `$ git pull origin` bofore starting work
+## <br>_Commit changes to local respository_
+```shell
+$ git add .
+```
+```shell
+$ git commit -m "<message (what did you change?)>"
+```
 ## <br>_Push changes to remote repository_
 #### 1) Check if everything is committed:
 ```shell
