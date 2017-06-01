@@ -17,6 +17,7 @@ nothing to commit, working tree clean
 ```shell
 $ git add .
 ```
+##### Yes there is a dot after add
 ```shell
 $ git commit -m "<message (what did you change?)>"
 ```
