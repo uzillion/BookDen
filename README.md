@@ -5,12 +5,20 @@
 $ git clone https://github.com/uzillion/BookDen.git
 ```
 ##### You will be prompted for username-password. Sign in.
-#### 2) Check if everything is fine by typing this, and checking if output looks similar:
+#### 2) Enter the repository directory:
+```shell
+$ cd BookDen
+```
+#### 3) Check if everything is fine by typing this, and checking if output looks similar:
 ```shell
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
 nothing to commit, working tree clean
+```
+#### 4) Automatically install all dependencies from package.json by typing:
+```shell
+$ npm install
 ```
 #### Note: Always do `$ git pull origin` bofore starting work
 ## <br>_Commit changes to local respository_
