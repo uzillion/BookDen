@@ -20,8 +20,8 @@ nothing to commit, working tree clean
 ```shell
 $ npm install
 ```
-#### Note: Always do `$ git pull origin` bofore starting work
 ## <br>_Commit changes to local respository_
+#### Note: Always do `$ git pull origin` bofore starting work
 ```shell
 $ git add .
 ```
