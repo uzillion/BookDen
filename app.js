@@ -15,6 +15,7 @@ var bookSchema = new mongoose.Schema({
 	title: String,
 	author: String,
 	isbn: Number,
+	price: String,
 	img: { 
 		data: Buffer, 
 		contentType: String 
