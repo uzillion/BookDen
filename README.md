@@ -21,7 +21,7 @@ nothing to commit, working tree clean
 $ npm install
 ```
 ## <br>_Commit changes to local respository_
-#### Note: Always do `$ git pull origin` bofore starting work
+#### Note: Always do `$ git pull origin` bofore starting work to pull latest version of project from GitHub
 ```shell
 $ git add .
 ```
@@ -29,7 +29,7 @@ $ git add .
 ```shell
 $ git commit -m "<message (what did you change?)>"
 ```
-## <br>_Push changes to remote repository_
+## <br>_Push changes to GitHub_
 #### 1) Check if everything is committed:
 ```shell
 $ git status

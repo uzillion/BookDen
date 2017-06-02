@@ -53,9 +53,9 @@ app.use(function(req, res, next) {
 	next();
 });
 app.use(methodOverride("_method"));
-// passport.use(new local(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.use(new local(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //Middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
