@@ -1,11 +1,11 @@
-var express = require("express"),
-	mongoose = require("mongoose"),
-	bodyParser = require("body-parser"),
-	passport = require("passport"),
-	local = require("passport-local"),
-	expSession = require("express-session"),
-	methodOverride = require("method-override"),
-	localMongoose = require("passport-local-mongoose");
+var express 		= require("express"),
+	mongoose 		= require("mongoose"),
+	bodyParser 		= require("body-parser"),
+	passport 		= require("passport"),
+	local 			= require("passport-local"),
+	expSession 		= require("express-session"),
+	methodOverride 	= require("method-override"),
+	localMongoose 	= require("passport-local-mongoose");
 
 mongoose.connect("mongodb://localhost/bookden");
 
@@ -96,6 +96,16 @@ app.post("/books", function(req, res) {
 			res.redirect("/books/" + addedBook._id);
 		}
 	});
+});
+
+//Book Search route
+app.get("/search", function(req, res) {
+	var temp = req.query.tSearch;
+	request("https://www.googleapis.com/books/v1/volumes?q="+temp, function(error, response, body) {
+		if(!error && response.statusCode == 200) {
+			res.render("search", {results: JSON.parse(body).Search});
+		}
+	}); 
 });
 
 //Book details route
