@@ -5,7 +5,8 @@ var express 		= require("express"),
 	local 			= require("passport-local"),
 	expSession 		= require("express-session"),
 	methodOverride 	= require("method-override"),
-	localMongoose 	= require("passport-local-mongoose");
+	localMongoose 	= require("passport-local-mongoose",),
+	request			= require("request");
 
 mongoose.connect("mongodb://localhost/bookden");
 
