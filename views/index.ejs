@@ -1,5 +1,17 @@
 <% include ./partials/header %>
 
-<h1>This is the home page</h1>
+<div class="jumbotron">
+	<form action="/search" method="GET">
+		<div class="form-group">
+    		<input name="tSearch"type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+    		<span class="input-group-btn">
+        		<input class="btn btn-success" type="submit">Go!</button>
+      		</span>
+      		<span class="input-group-btn">
+        		<input class="btn btn-success" type="submit">Go!</button>
+      		</span>
+  		</div>
+	</form>
+</div>
 
 <% include ./partials/footer %>
