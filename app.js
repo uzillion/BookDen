@@ -5,7 +5,7 @@ var express 		= require("express"),
 	local 			= require("passport-local"),
 	expSession 		= require("express-session"),
 	methodOverride 	= require("method-override"),
-	localMongoose 	= require("passport-local-mongoose",),
+	localMongoose 	= require("passport-local-mongoose"),
 	request			= require("request");
 
 mongoose.connect("mongodb://localhost/bookden");
@@ -104,7 +104,7 @@ app.get("/search", function(req, res) {
 	var temp = req.query.tSearch;
 	request("https://www.googleapis.com/books/v1/volumes?q="+temp, function(error, response, body) {
 		if(!error && response.statusCode == 200) {
-			res.render("search", {results: JSON.parse(body).Search});
+			res.render("search", {results: JSON.parse(body)});
 		}
 	}); 
 });
