@@ -168,7 +168,7 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-	User.register(new User({username: req.body.username}), req.body.password, function(err, addedUser) {
+	User.register(new User({username: req.body.username, email: req.body.email}), req.body.password, function(err, addedUser) {
 		if(err) {
 			console.log(err);
 		} else {

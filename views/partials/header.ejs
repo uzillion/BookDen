@@ -35,7 +35,7 @@
         <li><a href="/login">Login</a></li>
       <% } else { %>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.username%>
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">My Account</a></li>
@@ -43,7 +43,6 @@
             <li><a href="#">Settings</a></li>
           </ul>
         </li>
-        <li><a href="/#">Signed is as <%= user.username %></a></li>
         <li><a href="/logout" >Logout</a></li>
       <% } %> 
       </ul>
