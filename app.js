@@ -31,6 +31,7 @@ var Book = mongoose.model("Book", bookSchema);
 
 var userSchema = new mongoose.Schema({
 	username: String,
+	email: String,
 	passport: String
 });
 
@@ -162,11 +163,11 @@ app.delete("/book/:id", function(req, res) {
 // User Routes
 //==============
 //Registration routes
-app.get("/user/register", function(req, res) {
+app.get("/register", function(req, res) {
 	res.render("users/register");					//views/users/register.ejs
 });
 
-app.post("/user", function(req, res) {
+app.post("/register", function(req, res) {
 	User.register(new User({username: req.body.username}), req.body.password, function(err, addedUser) {
 		if(err) {
 			console.log(err);
@@ -183,7 +184,7 @@ app.get("/login", function(req, res) {
 	res.render("users/login");					//views/users/login.ejs
 });
 
-app.post("/user", passport.authenticate("local", {
+app.post("/login", passport.authenticate("local", {
 		successRedirect: "/books",
 		failureRedirect: "/user/login"
 }), function(req, res) {});
@@ -205,6 +206,19 @@ app.get("/user/:id", isLoggedIn, function(req, res) {
 	});
 });
 
+
+//============
+//Dev Routes
+//============
+app.get("/drop", function(req, res) {
+	Book.remove({}, function(err) { 
+   		console.log("Books removed"); 
+	});
+	User.remove({}, function(err) { 
+   		console.log("Users removed") 
+	});
+	res.redirect("/books");
+});
 
 //=====================
 //Listening Protocols

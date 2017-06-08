@@ -1,3 +1,16 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Roboto Slab', sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+.content {
+  	flex: 1 0 auto;
+}
 .navbar	{
 	background-color: #3380d0;
 }
@@ -52,4 +65,22 @@
 
 #bs-example-navbar-collapse-1 	{
 	background-color: #3380d0;
+}
+
+.promise {
+	text-align: center;
+	color: #4BB543;
+}
+
+.title {
+	text-align: center;
+}
+
+#footer {
+	font-weight: 600;
+	padding-left: 10px;
+	background: #eee;
+	border-top: solid #46C2FF;
+	grid-row-start: 2;
+ 	grid-row-end: 3;
 }
