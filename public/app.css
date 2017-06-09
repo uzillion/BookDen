@@ -8,32 +8,25 @@ body {
 	flex-direction: column;
 }
 
-#title-page {
-	font-size: 2.5em;
-}
-
 .content {
   	flex: 1 0 auto;
 }
+
 .navbar	{
 	background-color: #3380d0;
 }
 
-.navbar-default .navbar-nav>li 	{
+.navbar-default .navbar-nav>li         {
 	background-color: transparent;
 }
 
-.navbar-default .navbar-nav>li>a 	{
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
 	color: white;
 	display: block;
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-brand:hover {
 	color: orange;
-}
-
-.navbar-default .navbar-brand	{
-	color: white;
 }
 
 .navbar-default .navbar-toggle	{
