@@ -1,4 +1,20 @@
 <% include ../partials/header.ejs %>
 
+<div class="content">
+<div class="container ">
+<h2 style="text-align: center;"> <% var i=0; results.items.forEach(function() { i++; });%><%= i %> books found</h2>
+<hr>
+<div class="row text-center">
+	<% results.items.forEach(function(result) { %>
+		<div class="col-md-2 col-sm-6">
+			<div class="thumbnail">
+				<img src="<%= result.volumeInfo.imageLinks.smallThumbnail %>">
+				<div class="caption"><h5><strong><%= result.volumeInfo.title%></strong></h5></div>
+			</div>
+		</div>
+	<% }); %>
+</div>
+</div>
+</div>
 
 <% include ../partials/footer.ejs %>

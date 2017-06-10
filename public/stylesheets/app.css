@@ -60,7 +60,7 @@ body {
 }
 
 
-#bs-example-navbar-collapse-1 	{
+#bs-example-navbar-collapse-1 {
 	background-color: #3380d0;
 }
 
@@ -69,7 +69,7 @@ body {
 	color: #4BB543;
 }
 
-.title {
+.center {
 	text-align: center;
 }
 
@@ -80,4 +80,32 @@ body {
 	border-top: solid #46C2FF;
 	grid-row-start: 2;
  	grid-row-end: 3;
+}
+
+hr { 
+	border: 0; 
+	height: 1px;
+	background-image: linear-gradient(to right, rgba(70, 194, 255, 0), rgba(70, 194, 255, 0.75), rgba(70, 194, 255, 0)); 
+}
+
+.navbar-form {
+	margin-left: 30%;
+}
+
+.thumbnail img {
+	width: 100%;
+}
+
+.thumbnail {
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.2),
+				0px -2px 5px rgba(0,0,0,0.2),
+				2px 0px 5px rgba(0,0,0,0.2),
+				2px 0px 5px rgba(0,0,0,0.2);
+	padding: 0px;
+	max-width: 150px;
+}
+
+.row.text-center {
+	display: flex; 
+	flex-wrap: wrap;
 }

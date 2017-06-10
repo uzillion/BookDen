@@ -14,13 +14,8 @@ var app = express();
 
 var bookSchema = new mongoose.Schema({
 	title: String,
-	author: String,
-	isbn: Number,
+	googleId: String,
 	price: String,
-	img: { 
-		data: Buffer, 
-		contentType: String 
-	},
 	userId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User"
@@ -103,9 +98,11 @@ app.post("/books", function(req, res) {
 //Book Search route
 app.get("/search", function(req, res) {
 	var temp = req.query.tSearch;
-	request("https://www.googleapis.com/books/v1/volumes?q="+temp, function(error, response, body) {
+	request("https://www.googleapis.com/books/v1/volumes?q="+temp+"&key=AIzaSyBg4timArYeoNro1FAyIAGRDMhQsstNfow", function(error, response, body) {
 		if(!error && response.statusCode == 200) {
-			res.render("search", {results: JSON.parse(body)});
+			res.render("books/search", {results: JSON.parse(body)});
+		} else {
+			console.log(error);
 		}
 	}); 
 });
@@ -201,7 +198,7 @@ app.get("/user/:id", isLoggedIn, function(req, res) {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("users/user", {user: user});	  //views/users/user.ejs
+			res.render("users/user");	  //views/users/user.ejs
 		}
 	});
 });
