@@ -1,0 +1,20 @@
+<% include ../partials/header.ejs %>
+
+<div class="content">
+<div class="container ">
+<h2 style="text-align: center;"> Don't see your book? <a class="btn btn-primary" href="/manual">Add manually</a></h2>
+<hr>
+<div class="row text-center">
+	<% books.items.forEach(function(book) { %>
+		<div class="col-md-2 col-sm-6">
+			<a href="/auto/<%= book.id %>"><div class="thumbnail">
+				<img src="<%= book.volumeInfo.imageLinks.smallThumbnail %>">
+				<div class="caption"><h5><strong><%= book.volumeInfo.title%></strong></h5></div>
+			</div></a>
+		</div>
+	<% }); %>
+</div>
+</div>
+</div>
+
+<% include ../partials/footer.ejs %>

@@ -20,6 +20,7 @@ body {
 	background-color: transparent;
 }
 
+
 .navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
 	color: white;
 	display: block;
@@ -108,4 +109,22 @@ hr {
 .row.text-center {
 	display: flex; 
 	flex-wrap: wrap;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-primary.btn-outline:hover {
+    color: #fff;
+}
+
+.form-group h4 {
+	height: 1px;
 }

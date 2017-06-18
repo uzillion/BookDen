@@ -12,28 +12,36 @@ mongoose.connect("mongodb://localhost/bookden");
 
 var app = express();
 
-var bookSchema = new mongoose.Schema({
-	title: String,
-	googleId: String,
-	price: String,
-	userId: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "User"
-	}
-});
-
-var Book = mongoose.model("Book", bookSchema);
 
 var userSchema = new mongoose.Schema({
 	username: String,
 	email: String,
-	passport: String
+	password: String,
+	bookId: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Book"
+	}]
 });
 
 //Adding passport.js functionalities to User
 userSchema.plugin(localMongoose);
 
 var User = mongoose.model("User", userSchema);
+
+var bookSchema = new mongoose.Schema({
+	title: String,
+	desc: String,
+	isbn: String,
+	googleId: String,
+	price: String,
+	userId: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
+	}]
+});
+
+var Book = mongoose.model("Book", bookSchema);
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -82,7 +90,7 @@ app.get("/books", function(req, res) {
 
 //Add book routes
 app.get("/books/add", function(req, res) {
-	res.render("books/add");						//views/books/add.ejs
+	res.render("books/add", {manual:false});						//views/books/add.ejs
 });
 
 app.post("/books", function(req, res) {
@@ -90,22 +98,55 @@ app.post("/books", function(req, res) {
 		if(err) {
 			console.log(err);
 		} else {
+			if(req.isAuthenticated()) {
+				addedBook.userId.push(req.user._id);
+				addedBook.save();
+			}
 			res.redirect("/books/" + addedBook._id);
 		}
 	});
 });
 
-//Book Search route
-app.get("/search", function(req, res) {
-	var temp = req.query.tSearch;
+//Book Search for buying route
+app.get("/b-search", function(req, res) {
+	var temp = req.query.bSearch;
 	request("https://www.googleapis.com/books/v1/volumes?q="+temp+"&key=AIzaSyBg4timArYeoNro1FAyIAGRDMhQsstNfow", function(error, response, body) {
 		if(!error && response.statusCode == 200) {
-			res.render("books/search", {results: JSON.parse(body)});
+			res.render("books/b_search", {results: JSON.parse(body)});
 		} else {
 			console.log(error);
 		}
 	}); 
 });
+
+//Book search for selling route
+app.get("/s-search", function(req, res) {
+	var temp = req.query.sSearch;
+	request("https://www.googleapis.com/books/v1/volumes?q="+temp+"&key=AIzaSyBg4timArYeoNro1FAyIAGRDMhQsstNfow", function(error, response, body) {
+		if(!error && response.statusCode == 200) {
+			res.render("books/s_search", {books: JSON.parse(body)});
+		} else {
+			console.log(error);
+		}
+	}); 
+});
+
+//Route in case user decides to enter things manually
+app.get("/manual", function(req, res) {
+	res.render("books/add", {manual: true, book: false});
+});
+
+//Route in case user decides to use google books info
+app.get("/auto/:id", function(req, res) {
+	request("https://www.googleapis.com/books/v1/volumes/"+req.params.id+"?key=AIzaSyBg4timArYeoNro1FAyIAGRDMhQsstNfow", function(error, response, body) {
+		if(!error && response.statusCode == 200) {
+			res.render("books/add", {manual: true, book: JSON.parse(body)});
+		} else {
+			console.log(error);
+		}
+	}); 
+});
+
 
 //Book details route
 app.get("/books/:id", function(req, res) {
