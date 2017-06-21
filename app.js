@@ -89,19 +89,17 @@ app.get("/books", function(req, res) {
 });
 
 //Add book routes
-app.get("/books/add", function(req, res) {
+app.get("/books/add", isLoggedIn, function(req, res) {
 	res.render("books/add", {manual:false});						//views/books/add.ejs
 });
 
-app.post("/books", function(req, res) {
+app.post("/books", isLoggedIn, function(req, res) {
 	Book.create(req.body.book, function(err, addedBook) {
 		if(err) {
 			console.log(err);
 		} else {
-			if(req.isAuthenticated()) {
-				addedBook.userId.push(req.user._id);
-				addedBook.save();
-			}
+			addedBook.userId.push(req.user._id);
+			addedBook.save();
 			res.redirect("/books/" + addedBook._id);
 		}
 	});
@@ -120,7 +118,7 @@ app.get("/b-search", function(req, res) {
 });
 
 //Book search for selling route
-app.get("/s-search", function(req, res) {
+app.get("/s-search", isLoggedIn, function(req, res) {
 	var temp = req.query.sSearch;
 	request("https://www.googleapis.com/books/v1/volumes?q="+temp+"&key=AIzaSyBg4timArYeoNro1FAyIAGRDMhQsstNfow", function(error, response, body) {
 		if(!error && response.statusCode == 200) {
@@ -206,15 +204,22 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-	User.register(new User({username: req.body.username, email: req.body.email}), req.body.password, function(err, addedUser) {
-		if(err) {
-			console.log(err);
-		} else {
-			passport.authenticate("local")(req, res, function() {
-				res.redirect("/books");
-			});
-		}
-	});
+	var emailEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	var usernameEx = /^[a-zA-Z0-9]+([_\.]?[a-zA-Z0-9]){4,24}$/;
+	if(emailEx.test(req.body.email) && usernameEx.test(req.body.username)) {
+		User.register(new User({username: req.body.username, email: req.body.email}), req.body.password, function(err, addedUser) {
+			if(err) {
+				console.log(err);
+			} else {
+				passport.authenticate("local")(req, res, function() {
+					res.redirect("/books");
+				});
+			}
+		});
+	} else
+	{
+		res.redirect("/register");
+	}
 });
 
 //Login Routes
