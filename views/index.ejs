@@ -2,12 +2,34 @@
 
 <div class="content">
 <div class="container">
-  <div class="jumbotron">
-    <div class="container">
-      <h2>Welcome to BookDen. A place where we make buying books easy.</h2>
-    </div>
-  </div>
+  	<div class="jumbotron">
+    	<div class="container center">
+      		<h2>Welcome to BookDen. A place where we make buying books easy.</h2>
+      		<p class="container">
+             	<form action="/books" method="GET" id="book-search">
+                	<div class="form-group">
+                  		<input type="text" name="search" placeholder="Type here to search..." class="form-control">
+                	</div>
+              	</form>
+			</p>
+    	</div>
+ 	</div>
+	<div id="book-grid" class="row text-center" style="display: flex; flex-wrap: wrap;">
+		<% books.forEach(function(book) { %>
+			<div class="col-md-2 col-sm-6">
+				<a href="/books/<%= book.id %>"><div class="thumbnail">
+					<% if(book.googleId) { %>
+						<img src="<%= book.links.img %>">
+					<% } %>
+					<div class="caption"><h5><strong><%=book.title%></strong></h5></div>
+					<div class="caption">[School Name]</div>
+				</div></a>
+			</div>
+		<% }); %>
+	</div>
 </div>
 </div>
+
+<script type="text/javascript" src="/scripts/search.js" async defer></script>
 
 <% include ./partials/footer %>
