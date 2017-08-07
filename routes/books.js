@@ -5,6 +5,14 @@ var express 	= require("express"),
 	middleware 	= require("../middleware");
 
 //Home route
+// router.get("/a", function(req, res) {
+// 	res.send("Normal Get Route");
+// });
+// var q="hello";
+// router.get("/a", function(req, res) {
+// 	res.send(JSON.parse(req.body));
+// });
+
 router.get("/", function(req, res) {
 	res.redirect("/books");
 });
@@ -13,53 +21,86 @@ function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
-router.get("/books", function(req, res){
-  if(req.query.search && req.xhr) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+router.get("/books", function(req, res) {
+	if(req.query.search && req.xhr) {
+		// console.log("searched");
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		// Get all campgrounds from DB
+		Book.find({title: regex}, function(err, books) {
+			if(err) {
+				console.log(err);
+			} else {
+				res.status(200).json(books);
+			}
+		});
+	} else {
       // Get all campgrounds from DB
-      Book.find({title: regex}, function(err, books){
-         if(err){
-            console.log(err);
-         } else {
-            res.status(200).json(books);
-         }
-      });
-  } else {
-      // Get all campgrounds from DB
-      Book.find({}, function(err, books){
-         if(err){
+      	// console.log("all results");
+      	Book.find({}, function(err, books){
+         	if(err){
              console.log(err);
          } else {
             if(req.xhr) {
               res.json(books);
             } else {
-              res.render("index",{books: books});
+              res.render("index",{books: books, page: 'books'});
             }
          }
       });
-  }
+    }
 });
 
-// router.get("/books", function(req, res) {
+
+// router.get("/books", function(req, res){
+// 	console.log(req.query.search);
 // 	if(req.query.search) {
-//       	const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-//       	// Get all campgrounds from DB
-//       	Book.find({title: regex}, function(err, books){
-//         	if(err){
-//             console.log(err);
-//          	} else {
-//             	res.status(200).json(books);
-//          	}
-//       	});
+// 	  	const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+// 	  	console.log(regex);
+// 	    // Get all campgrounds from DB
+// 	   	Book.find({title: regex}, function(err, books){
+// 	     	if(err){
+// 	     		console.log(err); 
+// 	       	} else {
+// 	    	   	res.status(200).json(books);
+// 	        }
+// 		});
 // 	} else {
-// 		Book.find({} , function(err, books){
+//       // Get all campgrounds from DB
+//       Book.find({}, function(err, books){
+//          if(err){
+//              console.log(err);
+//          } else {
+//             if(req.xhr) {
+//               res.json(books);
+//             } else {
+//               res.render("index",{books: books});
+//             }
+//          }
+//       });
+//   }
+// });
+
+// router.get("/books", function(req, res) {
+// 	// if(req.query.search) {
+//  //      	const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+//  //      	// Get all campgrounds from DB
+//  //      	Book.find({title: regex}, function(err, books){
+//  //        	if(err){
+//  //            console.log(err);
+//  //         	} else {
+//  //            	res.status(200).json(books);
+//  //         	}
+//  //      	});
+// 	// } else {
+// 		var reg = /har/i;
+// 		Book.find({title: reg} , function(err, books){
 // 			if(err) {
 // 				console.log(err);
 // 			} else {
 // 				res.render("index", {books: books});	//views/index.ejs
 // 			}
 // 		});
-// 	}
+// 	// }
 // });
 
 //Add book routes
